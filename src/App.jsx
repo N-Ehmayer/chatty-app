@@ -34,17 +34,22 @@ class App extends Component {
 
   renderNewMessage(messageText) {
 
+    const text = messageText;
+    const user = this.state.currentUser.name;
 
     const newMessageObject = {
-      id: Math.random(),
+      //id: Math.random(),
       type: "user",
-      text: messageText,
-      user: this.state.currentUser.name
+      text: text,
+      user: user
     };
 
-    this.socket.send(`User ${newMessageObject.user} said ${newMessageObject.text}`);
+    this.socket.send(JSON.stringify(newMessageObject));
+
     this.socket.onmessage = (event) => {
-      console.log(event.data);
+
+      const newMessage = this.state.messages.concat(JSON.parse(event.data));
+      this.setState({messages: newMessage});
     };
 
     const newMessage = this.state.messages.concat(newMessageObject);
