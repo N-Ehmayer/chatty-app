@@ -9,6 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      totalUsers: 0,
       currentUser: {name: "Anonymous"},
       messages: []
     };
@@ -24,11 +25,17 @@ class App extends Component {
     this.socket = new WebSocket("ws://localhost:3001");// <--- Connects app to server
     console.log("Connected to server");
 
-  /* Grabs incoming messages from server */
+  /* Grabs incoming data from server */
     this.socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === "userTotal") {
+        this.setState({totalUsers: data.clientTotal})
 
-      const newMessage = this.state.messages.concat(JSON.parse(event.data));
-      this.setState({messages: newMessage});
+      } else {
+        const newMessage = this.state.messages.concat(data);
+        this.setState({messages: newMessage});
+      }
+
     };
 
   }
@@ -44,6 +51,7 @@ class App extends Component {
         type: "system",
         text: `${oldUser} changed their name to ${newUser}`
       }
+
       this.socket.send(JSON.stringify(systemMessageObject));
     }
   }
@@ -68,7 +76,7 @@ class App extends Component {
 
     return (
       <div>
-      <NavBar />
+      <NavBar userCount={this.state.totalUsers} />
       <MessageList messages={this.state.messages} />
       <ChatBar
         currentUser={this.state.currentUser.name}

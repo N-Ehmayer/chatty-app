@@ -24,13 +24,22 @@ wss.on('connection', (ws) => {
   console.log('Client connected');
 
   connectedClients.push(ws);
-  console.log(connectedClients.length);
+  console.log(`Total users connected: ${connectedClients.length}`);
+
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify({clientTotal: connectedClients.length, type: "userTotal"}));
+    }
+  });
+
+
+
 
   ws.on('message', (data) => {
     const message = JSON.parse(data);
     message.id = uuid.v4();
 
-
+  /* Broadcast messages to all connected clients */
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(message));
@@ -48,12 +57,16 @@ wss.on('connection', (ws) => {
     connectedClients.forEach((client, index) => {
       if (client === ws) {
         connectedClients.splice(index, 1);
-        return connectedClients;
       }
     });
-    console.log(connectedClients.length);
-  })
+    console.log(`Total users connected: ${connectedClients.length}`);
 
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify({clientTotal: connectedClients.length, type: "userTotal"}));
+      }
+    });
+  })
 });
 
 

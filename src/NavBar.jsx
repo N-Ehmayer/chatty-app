@@ -4,10 +4,12 @@ class NavBar extends Component {
 
   render() {
 
+    const userCount = this.props.userCount;
+
     return (
       <nav className="navbar">
         <a href="/" className="navbar-brand">Chatty</a>
-        <p className="user-counter">5 users online</p>
+        <p className="user-counter">{userCount} users online</p>
       </nav>
     );
   }
