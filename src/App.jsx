@@ -10,7 +10,10 @@ class App extends Component {
     super(props);
     this.state = {
       totalUsers: 0,
-      currentUser: {name: "Anonymous"},
+      currentUser: {
+        name: "Anonymous",
+        colour: "#000000"
+      },
       messages: []
     };
 
