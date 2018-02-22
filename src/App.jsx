@@ -12,7 +12,7 @@ class App extends Component {
       totalUsers: 0,
       currentUser: {
         name: "Anonymous",
-        colour: "#000000"
+        userColor: {color: "#0000ff"}
       },
       messages: []
     };
@@ -80,7 +80,7 @@ class App extends Component {
     return (
       <div>
       <NavBar userCount={this.state.totalUsers} />
-      <MessageList messages={this.state.messages} />
+      <MessageList messages={this.state.messages} color={this.state.currentUser.userColor} />
       <ChatBar
         currentUser={this.state.currentUser.name}
         newUser={this.setNewUser}

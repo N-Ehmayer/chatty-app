@@ -48,7 +48,7 @@ class ChatBar extends Component {
           value={this.state.newUserText}
           onChange={this.onUserTextChange}
           className="chatbar-username"
-          placeholder={currentUser}
+          placeholder="username"
           onKeyPress={this.onNewUserSubmit} />
         <input
           value={this.state.messageText}

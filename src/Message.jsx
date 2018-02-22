@@ -6,11 +6,13 @@ class Message extends Component {
     console.log("Rendering <Message/>");
 
     const message = this.props.messageData;
+    const color = this.props.color;
+    console.log(color);
 
     if (message.type === 'user') {
       return (
         <div className="message">
-          <span className="message-username">{message.user}</span>
+          <span className="message-username" style={color}>{message.user}</span>
           <span className="message-content">{message.text}</span>
         </div>
       );
