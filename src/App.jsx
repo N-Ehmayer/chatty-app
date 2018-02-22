@@ -9,21 +9,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: {name: "Nic"},
-      messages: [{
-        id: 1,
-        type: "user",
-        text: "I won't be impressed with technology until I can download food.",
-        user: "Anonymous1"
-      }, {
-        id: 3,
-        type: "system",
-        text: "Anonymous1 changed their name to nomnom."
-      }, {
-        id: 2,
-        type: "user",
-        text: "hey",
-        user: "TheLegend27"
-      }]
+      messages: []
     };
 
     this.renderNewMessage = this.renderNewMessage.bind(this);
@@ -47,7 +33,6 @@ class App extends Component {
   }
 
   renderNewMessage(messageText) {
-
 
 
     const newMessageObject = {
