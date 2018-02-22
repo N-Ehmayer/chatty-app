@@ -5,13 +5,27 @@ class ChatBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messageText: ''
+      messageText: '',
+      newUserText: ''
     };
+
+    this.onUserTextChange = this.onUserTextChange.bind(this);
+    this.onNewUserSubmit = this.onNewUserSubmit.bind(this);
 
     this.onMessageTextChange = this.onMessageTextChange.bind(this);
     this.onMessageSubmit = this.onMessageSubmit.bind(this);
   }
 //----------------------------------------------------------------------------------//
+  onUserTextChange(event) {
+    this.setState({newUserText: event.target.value});
+  }
+
+  onNewUserSubmit(event) {
+    if (event.key === 'Enter') {
+      this.props.newUser(this.state.newUserText);
+    }
+  }
+
   onMessageTextChange(event) {
     this.setState({messageText: event.target.value});
   }
@@ -30,7 +44,12 @@ class ChatBar extends Component {
 //----------------------------------------------------------------------------------//
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder={currentUser} />
+        <input
+          value={this.state.newUserText}
+          onChange={this.onUserTextChange}
+          className="chatbar-username"
+          placeholder={currentUser}
+          onKeyPress={this.onNewUserSubmit} />
         <input
           value={this.state.messageText}
           onChange={this.onMessageTextChange}

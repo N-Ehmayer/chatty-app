@@ -8,53 +8,57 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name: "Nic"},
+      currentUser: {name: "Anonymous"},
       messages: []
     };
 
-    this.renderNewMessage = this.renderNewMessage.bind(this);
-
+    this.setNewUser = this.setNewUser.bind(this);
+    this.addNewMessage = this.addNewMessage.bind(this);
   }
 
 
   componentDidMount() {
     console.log("componentDidMount <App />");
 
-    this.socket = new WebSocket("ws://localhost:3001");
+    this.socket = new WebSocket("ws://localhost:3001");// <--- Connects app to server
     console.log("Connected to server");
 
-    // this.socket.onopen = (event) => {
-    //   this.socket.send("some data");
-    // };
-
-    // this.socket.onmessage = (event) => {
-    //   console.log(event.data);
-    // };
-  }
-
-  renderNewMessage(messageText) {
-
-    const text = messageText;
-    const user = this.state.currentUser.name;
-
-    const newMessageObject = {
-      //id: Math.random(),
-      type: "user",
-      text: text,
-      user: user
-    };
-
-    this.socket.send(JSON.stringify(newMessageObject));
-
+  /* Grabs incoming messages from server */
     this.socket.onmessage = (event) => {
 
       const newMessage = this.state.messages.concat(JSON.parse(event.data));
       this.setState({messages: newMessage});
     };
 
-    const newMessage = this.state.messages.concat(newMessageObject);
-    this.setState({messages: newMessage});
+  }
 
+  setNewUser(newUserText) {
+    const oldUser = this.state.currentUser.name;
+    const newUser = newUserText;
+
+    if (oldUser !== newUser) {
+      this.setState({currentUser: {name: newUser}});
+
+      const systemMessageObject = {
+        type: "system",
+        text: `${oldUser} changed their name to ${newUser}`
+      }
+      this.socket.send(JSON.stringify(systemMessageObject));
+    }
+  }
+
+
+  addNewMessage(messageText) {
+    const text = messageText;
+    const user = this.state.currentUser.name;
+
+    const newMessageObject = {
+      type: "user",
+      text: text,
+      user: user,
+    };
+
+    this.socket.send(JSON.stringify(newMessageObject));
   }
 
 
@@ -69,7 +73,8 @@ class App extends Component {
       <MessageList messages={this.state.messages} />
       <ChatBar
         currentUser={this.state.currentUser.name}
-        newMessage={this.renderNewMessage} />
+        newUser={this.setNewUser}
+        newMessage={this.addNewMessage} />
       </div>
     );
   }
