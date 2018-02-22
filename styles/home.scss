@@ -83,3 +83,11 @@ body {
   padding: 0 10px;
   text-decoration: none;
 }
+
+.user-counter {
+  float: right;
+  font-size: 16px;
+  position: relative;
+  top: 5px;
+  padding-right: inherit;
+}
