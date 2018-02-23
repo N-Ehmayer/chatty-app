@@ -31,7 +31,7 @@ class ChatBar extends Component {
   }
 
   onMessageSubmit(event) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && this.state.messageText) {
       this.props.newMessage(this.state.messageText);
       this.setState({messageText: ''});
     };

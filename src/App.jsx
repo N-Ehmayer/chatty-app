@@ -12,7 +12,7 @@ class App extends Component {
       totalUsers: 0,
       currentUser: {
         name: "Anonymous",
-        color: "#000000"
+        color: "#808080"
       },
       messages: []
     };
