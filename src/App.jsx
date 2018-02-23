@@ -11,7 +11,8 @@ class App extends Component {
     this.state = {
       totalUsers: 0,
       currentUser: {
-        name: "Anonymous"
+        name: "Anonymous",
+        color: "#000000"
       },
       messages: []
     };
@@ -31,11 +32,12 @@ class App extends Component {
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "userTotal") {
-        this.setState({totalUsers: data.clientTotal})
+        this.setState({totalUsers: data.clientTotal});
 
       } else {
         const newMessage = this.state.messages.concat(data);
         this.setState({messages: newMessage});
+
       }
 
     };
@@ -46,8 +48,11 @@ class App extends Component {
     const oldUser = this.state.currentUser.name;
     const newUser = newUserText;
 
+    const colors = ["#0000ff", "#ff0000", "#008000", "#FFA500"];
+    const randomColor = colors[Math.floor(Math.random()*Math.floor(4))];
+
     if (oldUser !== newUser) {
-      this.setState({currentUser: {name: newUser}});
+      this.setState({currentUser: {name: newUser, color: randomColor}});
 
       const systemMessageObject = {
         type: "system",
@@ -62,11 +67,13 @@ class App extends Component {
   addNewMessage(messageText) {
     const text = messageText;
     const user = this.state.currentUser.name;
+    const color = this.state.currentUser.color;
 
     const newMessageObject = {
       type: "user",
       text: text,
       user: user,
+      color: color
     };
 
     this.socket.send(JSON.stringify(newMessageObject));

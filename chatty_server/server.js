@@ -33,8 +33,6 @@ wss.on('connection', (ws) => {
   });
 
 
-
-
   ws.on('message', (data) => {
     const message = JSON.parse(data);
     message.id = uuid.v4();
