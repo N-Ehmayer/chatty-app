@@ -3,7 +3,6 @@ import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
 import NavBar from './NavBar.jsx';
 
-
 class App extends Component {
 
   constructor(props) {
@@ -21,6 +20,9 @@ class App extends Component {
     this.addNewMessage = this.addNewMessage.bind(this);
   }
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "instant" });
+  }
 
   componentDidMount() {
     console.log("componentDidMount <App />");
@@ -40,21 +42,14 @@ class App extends Component {
       };
     };
 
-
-    const messageList = document.querySelector('.messages');
-    console.log(messageList);
-
-    const observer = new MutationObserver(scrollToBottom);
-
-    const config = {childList: true};
-    observer.observe(messageList, config);
-
-    function scrollToBottom() {
-      messageList.scrollTop = messageList.scrollHeight;
-    }
-
+    //this.scrollToBottom();
   };
-/* Sets a new username and color and notifies the server. */
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  };
+
+/* Sets a new username with color and notifies the server. */
   setNewUser(newUserText) {
     const oldUser = this.state.currentUser.name;
     const newUser = newUserText.trim();
@@ -98,6 +93,9 @@ class App extends Component {
       <div>
       <NavBar userCount={this.state.totalUsers} />
       <MessageList messages={this.state.messages} />
+      <div style={{ float:"left", clear: "both" }}
+           ref={(el) => { this.messagesEnd = el; }}>
+      </div>
       <ChatBar
         currentUser={this.state.currentUser.name}
         newUser={this.setNewUser}
