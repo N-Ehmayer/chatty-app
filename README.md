@@ -1,45 +1,40 @@
-React Boilerplate
+Chatty App
 =====================
 
-A minimal and light dev environment for ReactJS.
+A basic React based chat application primarily utilizing Webpack and WebSockets.
 
-### Usage
 
-Clone the boilerplate and create your own git repo.
+!["Overview of Chatty App"]()
 
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
 
-Install the dependencies and start the server.
+### Getting Started
+
+* Clone the repo into a local directory.
 
 ```
-npm install
-npm start
-open http://localhost:3000
+git clone https://github.com/N-Ehmayer/chatty-app.git
 ```
 
-### Static Files
+* Install all dependencies for the main app and the Websocket server using `npm install i`.
 
-You can store static files like images, fonts, etc in the `build` folder.
+* Start the Websocket and Webpack servers using `npm start`.
 
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
+* Navigate to [localhost:3000](http://localhost:3000).
 
 ### Dependencies
 
 * React
+* react-dom
 * Webpack
-* [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+* [babel-loader](https://github.com/babel/babel-loader)
+* babel-preset-es2015
+* babel-preset-react
+* babel-preset-stage-0
+* node-sass
+* sass-loader
+* sockjs-client
+* style-loader
+* css-loader
+
+
