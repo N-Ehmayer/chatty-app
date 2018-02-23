@@ -39,16 +39,30 @@ class App extends Component {
         this.setState({messages: newMessage});
       };
     };
+
+
+    const messageList = document.querySelector('.messages');
+    console.log(messageList);
+
+    const observer = new MutationObserver(scrollToBottom);
+
+    const config = {childList: true};
+    observer.observe(messageList, config);
+
+    function scrollToBottom() {
+      messageList.scrollTop = messageList.scrollHeight;
+    }
+
   };
 /* Sets a new username and color and notifies the server. */
   setNewUser(newUserText) {
     const oldUser = this.state.currentUser.name;
-    const newUser = newUserText;
+    const newUser = newUserText.trim();
 
     const colors = ["#0000ff", "#ff0000", "#008000", "#FFA500"];
     const randomColor = colors[Math.floor(Math.random()*Math.floor(4))];
 
-    if (oldUser !== newUser) {
+    if (oldUser !== newUser && /\S/.test(newUser)) {
       this.setState({currentUser: {name: newUser, color: randomColor}});
 
       const systemMessageObject = {

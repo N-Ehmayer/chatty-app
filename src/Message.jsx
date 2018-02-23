@@ -18,11 +18,11 @@ class Message extends Component {
       );
 
     } else if (message.type === 'system') {
-        return (
-          <div className="message system">
-            {message.text}
-          </div>
-        );
+      return (
+        <div className="message system">
+          {message.text}
+        </div>
+      );
     };
   };
 };
