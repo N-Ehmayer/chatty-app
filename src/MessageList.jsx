@@ -18,7 +18,7 @@ class MessageList extends Component {
         {messages}
       </main>
     );
-  }
-}
+  };
+};
 
 export default MessageList;

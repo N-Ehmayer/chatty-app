@@ -24,12 +24,11 @@ wss.on('connection', (ws) => {
   console.log('Client connected');
 
   connectedClients.push(ws);
-  console.log(`Total users connected: ${connectedClients.length}`);
 
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify({clientTotal: connectedClients.length, type: "userTotal"}));
-    }
+    };
   });
 
 
@@ -41,30 +40,27 @@ wss.on('connection', (ws) => {
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(message));
-      }
+      };
     });
-
-    console.log(message);
   });
 
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => {
-    console.log('Client disconnected')
+    console.log('Client disconnected');
 
     connectedClients.forEach((client, index) => {
       if (client === ws) {
         connectedClients.splice(index, 1);
-      }
+      };
     });
-    console.log(`Total users connected: ${connectedClients.length}`);
 
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify({clientTotal: connectedClients.length, type: "userTotal"}));
-      }
+      };
     });
-  })
+  });
 });
 
 

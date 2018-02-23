@@ -12,7 +12,7 @@ class NavBar extends Component {
         <p className="user-counter">{userCount} users online</p>
       </nav>
     );
-  }
-}
+  };
+};
 
 export default NavBar;

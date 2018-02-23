@@ -24,7 +24,7 @@ class Message extends Component {
           </div>
         );
     };
-  }
-}
+  };
+};
 
 export default Message;

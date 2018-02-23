@@ -18,24 +18,24 @@ class ChatBar extends Component {
 //----------------------------------------------------------------------------------//
   onUserTextChange(event) {
     this.setState({newUserText: event.target.value});
-  }
+  };
 
   onNewUserSubmit(event) {
     if (event.key === 'Enter') {
       this.props.newUser(this.state.newUserText);
-    }
-  }
+    };
+  };
 
   onMessageTextChange(event) {
     this.setState({messageText: event.target.value});
-  }
+  };
 
   onMessageSubmit(event) {
     if (event.key === 'Enter' && this.state.messageText) {
       this.props.newMessage(this.state.messageText);
       this.setState({messageText: ''});
     };
-  }
+  };
 //----------------------------------------------------------------------------------//
   render() {
     console.log("Rendering <ChatBar/>");
@@ -58,7 +58,7 @@ class ChatBar extends Component {
           onKeyPress={this.onMessageSubmit} />
       </footer>
     );
-  }
-}
+  };
+};
 
 export default ChatBar;

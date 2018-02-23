@@ -28,7 +28,7 @@ class App extends Component {
     this.socket = new WebSocket("ws://localhost:3001");// <--- Connects app to server
     console.log("Connected to server");
 
-  /* Grabs incoming data from server */
+  /* Grabs incoming data from the server and updates the state. */
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type === "userTotal") {
@@ -37,13 +37,10 @@ class App extends Component {
       } else {
         const newMessage = this.state.messages.concat(data);
         this.setState({messages: newMessage});
-
-      }
-
+      };
     };
-
-  }
-
+  };
+/* Sets a new username and color and notifies the server. */
   setNewUser(newUserText) {
     const oldUser = this.state.currentUser.name;
     const newUser = newUserText;
@@ -57,13 +54,13 @@ class App extends Component {
       const systemMessageObject = {
         type: "system",
         text: `${oldUser} changed their name to ${newUser}`
-      }
+      };
 
       this.socket.send(JSON.stringify(systemMessageObject));
-    }
-  }
+    };
+  };
 
-
+/* Sends new user messages to the server. */
   addNewMessage(messageText) {
     const text = messageText;
     const user = this.state.currentUser.name;
@@ -77,7 +74,7 @@ class App extends Component {
     };
 
     this.socket.send(JSON.stringify(newMessageObject));
-  }
+  };
 
 
   render() {
@@ -93,7 +90,7 @@ class App extends Component {
         newMessage={this.addNewMessage} />
       </div>
     );
-  }
-}
+  };
+};
 
 export default App;
