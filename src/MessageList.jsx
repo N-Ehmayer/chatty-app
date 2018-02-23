@@ -9,7 +9,7 @@ class MessageList extends Component {
 
     const messages = this.props.messages.map((message) => {
         return (
-          <Message key={message.id} messageData={message} color={this.props.color} />
+          <Message key={message.id} messageData={message} />
         );
     });
 
