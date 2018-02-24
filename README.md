@@ -1,7 +1,7 @@
 Chatty App
 =====================
 
-A basic React based chat application primarily utilizing Webpack and WebSockets.
+A React based real-time chat application using Webpack, Websocket, and Babel.
 
 
 !["Overview of Chatty App"](https://github.com/N-Ehmayer/chatty-app/blob/master/docs/chatty.png?raw=true)
