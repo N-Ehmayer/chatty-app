@@ -1,4 +1,4 @@
-// server.js
+  // server.js
 const WebSocket = require('ws');
 const express = require('express');
 const SocketServer = require('ws').Server;
@@ -61,6 +61,8 @@ wss.on('connection', (ws) => {
       };
     });
   });
+
+  ws.on('error', () => console.log('errored'));
 });
 
 
